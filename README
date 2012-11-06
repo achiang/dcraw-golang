@@ -1,0 +1,24 @@
+This is a little project to learn go by porting dcraw.c.
+
+Each commit should be a self-contained go lesson.
+
+dcraw was obtained from:
+	http://www.cybercom.net/~dcoffin/dcraw/
+
+dcraw is sufficiently complicated that a port isn't straightforward. I am
+using some standard profiling tools to help me make sure I don't miss things.
+Below are some notes on how to build dcraw.c with profiling.
+
+Building  dcraw
+===============
+$ gcc -fprofile-arcs -ftest-coverage -o gcc-dcraw dcraw.c -lm -g -pg -DNODEPS
+
+Flat profile
+============
+$ ./gcc-dcraw -i IMG_1100.CR2
+$ gprof -b -l gcc-dcraw
+
+Line-by-line
+============
+$ gcov ./gcc-dcraw -i IMG_1100.CR2
+$ gcov dcraw.c
